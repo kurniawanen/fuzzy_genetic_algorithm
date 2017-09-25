@@ -135,6 +135,33 @@ def calculate_t2_membership(t2):
 def calculate_t3_membership(t3):
     return calculate_t1_membership(t3)
 
+def calculate_ca_low_x(y):
+    if y == 1.0:
+        return 0.25
+    if y == 0.0:
+        return 1.0
+    x = (0.25 * y) + 0.25
+    return x
+
+def calculate_ca_medium_x(y):
+    return 0.5
+
+def calculate_ca_high_x(y):
+    if y == 1.0:
+        return 0.75
+    if y == 0.0:
+        return 0.5
+    return (0.25 * y) + 0.5
+
+def calculate_p_low_x(y):
+    return calculate_ca_low_x()
+
+def calculate_p_medium_x(y):
+    return calculate_ca_medium_x()
+
+def calculate_p_high_x(y):
+    return calculate_ca_high_x()
+
 def calculate_ca_and_p(population, value):
     t1, t2, t3 = calculate_t(population, value)
     t1_low, t1_medium, t1_high = calculate_t1_membership(t1)
@@ -221,4 +248,22 @@ def calculate_ca_and_p(population, value):
     ca_low_array.append(max(t1_high, t2_high, t3_high))
     p_low_array.append(min(t1_high, t2_high, t3_high))
 
-    #TODO: defuzzification
+    u_ca_x = sum([calculate_ca_low_x(y) * y for y in ca_low_array])
+    u_ca_x += sum([calculate_ca_medium_x(y) * y for y in ca_medium_array])
+    u_ca_x += sum([calculate_ca_high_x(y) * y for y in ca_high_array])
+    u_ca = sum(ca_low_array)
+    u_ca += sum(ca_medium_array)
+    u_ca += sum(ca_high_array)
+    ca = u_ca_x / (u_ca * 1.0)
+
+    u_p_x = sum([calculate_p_low_x(y) * y for y in p_low_array])
+    u_p_x += sum([calculate_p_medium_x(y) * y for y in p_medium_array])
+    u_p_x += sum([calculate_p_high_x(y) * y for y in p_high_array])
+    u_p = sum(p_low_array)
+    u_p += sum(p_medium_array)
+    u_p += sum(p_high_array)
+    p = u_p_x / (u_p * 1.0)
+
+    return ca, p
+
+#TODO: Crossover, mutation, elitism
