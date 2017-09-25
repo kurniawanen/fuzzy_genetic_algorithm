@@ -1,17 +1,21 @@
 import numpy as np
 import random
 
+
 def generate_value(total_item):
     return np.random.randint(1, 100, total_item)
 
+
 def generate_weight(total_item):
     return np.random.randint(1, 100, total_item)
+
 
 def is_feasible(chromosome, weight, capacity):
     total = 0
     for i in range(len(chromosome)):
         total += chromosome[i] * weight[i]
     return total <= capacity
+
 
 def repair_chromosome(chromosome, weight, capacity):
     total_weight = 0
@@ -26,11 +30,13 @@ def repair_chromosome(chromosome, weight, capacity):
         total_weight -= item[now][0]
     return temp
 
+
 def fitness_value(chromosome, value):
     total = 0
     for i in range(len(chromosome)):
         total += chromosome[i] * value[i]
     return total
+
 
 def hamming_distance(a, b):
     distance = 0
@@ -39,8 +45,10 @@ def hamming_distance(a, b):
             distance += 1
     return distance
 
+
 def active_genes(a):
     return np.sum(a)
+
 
 def separate_by_gender(population, generation):
     gender = 0
@@ -54,11 +62,12 @@ def separate_by_gender(population, generation):
             male.append(x)
     return male, female
 
-def female_tournament_selection(female, value, round):
-    round -= 1
+
+def female_tournament_selection(female, value, tournament_round):
+    tournament_round -= 1
     female_chro = female[np.random.randint(0, len(value))]
     fitness_value_female_chro = fitness_value(female_chro, value)
-    for i in range(round):
+    for i in range(tournament_round):
         chromosome = female[np.random.randint(0, len(value))]
         fitness_value_temp = fitness_value(chromosome, value)
         if fitness_value_temp > fitness_value_female_chro:
@@ -67,7 +76,8 @@ def female_tournament_selection(female, value, round):
 
     return female_chro
 
-def male_selection(male, female_chro, value, size = -1):
+
+def male_selection(male, female_chro, value, size=-1):
     if size == -1:
         size = len(male) // 2
     male_temp = random.sample(male, size)
@@ -78,6 +88,7 @@ def male_selection(male, female_chro, value, size = -1):
     male_chro_index = max(zip(male_hamming_distance, male_fitness_value, male_active_genes, male_index))[3]
     male_chro = male_temp[male_chro_index]
     return male_chro
+
 
 def calculate_t(population, value):
     size = len(population)
@@ -91,6 +102,7 @@ def calculate_t(population, value):
     t2 = (max_fitness_value - average_fitness_value) / (max_fitness_value * 1.0)
     t3 = hamming_distance(chro_max_fitness_value, chro_min_fitness_value) / (len(chro_max_fitness_value) * 1.0)
     return t1, t2, t3
+
 
 def calculate_t1_membership(t1):
     low = 0.0
@@ -116,6 +128,7 @@ def calculate_t1_membership(t1):
 
     return low, medium, high
 
+
 def calculate_t2_membership(t2):
     low = 0.0
     high = 1.0
@@ -132,8 +145,10 @@ def calculate_t2_membership(t2):
 
     return low, high
 
+
 def calculate_t3_membership(t3):
     return calculate_t1_membership(t3)
+
 
 def calculate_ca_low_x(y):
     if y == 1.0:
@@ -143,8 +158,12 @@ def calculate_ca_low_x(y):
     x = (0.25 * y) + 0.25
     return x
 
+
 def calculate_ca_medium_x(y):
+    if y == 0.0:
+        return 0.0
     return 0.5
+
 
 def calculate_ca_high_x(y):
     if y == 1.0:
@@ -153,14 +172,18 @@ def calculate_ca_high_x(y):
         return 0.5
     return (0.25 * y) + 0.5
 
+
 def calculate_p_low_x(y):
-    return calculate_ca_low_x()
+    return calculate_ca_low_x(y)
+
 
 def calculate_p_medium_x(y):
-    return calculate_ca_medium_x()
+    return calculate_ca_medium_x(y)
+
 
 def calculate_p_high_x(y):
-    return calculate_ca_high_x()
+    return calculate_ca_high_x(y)
+
 
 def calculate_ca_and_p(population, value):
     t1, t2, t3 = calculate_t(population, value)
@@ -266,4 +289,4 @@ def calculate_ca_and_p(population, value):
 
     return ca, p
 
-#TODO: Crossover, mutation, elitism
+    # TODO: Crossover, mutation, elitism
