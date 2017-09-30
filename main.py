@@ -290,3 +290,56 @@ def calculate_ca_and_p(population, value):
     return ca, p
 
     # TODO: Crossover, mutation, elitism
+
+
+def two_pc(a, b, output_array=None):
+    if output_array is None:
+        output_array = []
+    length = len(a)
+    first_point = np.random.randint(length)
+    second_point = np.random.randint(length)
+    if first_point > second_point:
+        tmp = first_point
+        first_point = second_point
+        second_point = tmp
+
+    x = []
+    y = []
+    for i in range(length):
+        if (i < first_point) or (i > second_point):
+            x.append(a[i])
+            y.append(b[i])
+        else:
+            x.append(b[i])
+            y.append(a[i])
+    output_array.append(x)
+    output_array.append(y)
+    return output_array
+
+
+def k_pc(a, b, output_array=None):
+    if output_array is None:
+        output_array = []
+
+    length = len(a)
+    k = np.random.randint(3, length-1)
+    k_points = random.sample(range(length), k)
+    k_points = sorted(k_points)
+    x = []
+    y = []
+    iterator = 0
+    for i in range(length):
+        if iterator < k:
+            if i == k_points[iterator]:
+                iterator += 1
+
+        if iterator % 2 == 0:
+            x.append(a[i])
+            y.append(b[i])
+        else:
+            x.append(b[i])
+            y.append(a[i])
+
+    output_array.append(x)
+    output_array.append(y)
+    return output_array
