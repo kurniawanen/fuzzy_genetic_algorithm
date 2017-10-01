@@ -343,3 +343,28 @@ def k_pc(a, b, output_array=None):
     output_array.append(x)
     output_array.append(y)
     return output_array
+
+
+def i_c(a, b, output_array=None):
+    if output_array is None:
+        output_array = []
+    length = len(a)
+    first_point = np.random.randint(length)
+    second_point = np.random.randint(length)
+    if first_point > second_point:
+        tmp = first_point
+        first_point = second_point
+        second_point = tmp
+
+    x = []
+    y = []
+    for i in range(length):
+        if (i < first_point) or (i > second_point):
+            x.append(a[i])
+            y.append(b[i])
+        else:
+            x.append(b[length-1-i])
+            y.append(a[length-1-i])
+    output_array.append(x)
+    output_array.append(y)
+    return output_array
