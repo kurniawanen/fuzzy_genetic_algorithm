@@ -28,6 +28,7 @@ def repair_chromosome(chromosome, weight, capacity):
     while total_weight > capacity:
         temp[item[now][1]] = 0
         total_weight -= item[now][0]
+        now = now + 1
     return temp
 
 
@@ -36,6 +37,16 @@ def fitness_value(chromosome, value):
     for i in range(len(chromosome)):
         total += chromosome[i] * value[i]
     return total
+
+
+def repair_offspring(offspring, weight, capacity):
+    new_offspring = []
+    for x in offspring:
+        if is_feasible(x, weight, capacity):
+            new_offspring.append(x)
+        else:
+            new_offspring.append(repair_chromosome(x, weight, capacity))
+    return new_offspring
 
 
 def hamming_distance(a, b):
@@ -322,7 +333,7 @@ def k_pc(a, b, output_array=None):
         output_array = []
 
     length = len(a)
-    k = np.random.randint(3, length-1)
+    k = np.random.randint(3, length - 1)
     k_points = random.sample(range(length), k)
     k_points = sorted(k_points)
     x = []
@@ -363,8 +374,42 @@ def i_c(a, b, output_array=None):
             x.append(a[i])
             y.append(b[i])
         else:
-            x.append(b[length-1-i])
-            y.append(a[length-1-i])
+            x.append(b[length - 1 - i])
+            y.append(a[length - 1 - i])
     output_array.append(x)
     output_array.append(y)
+    return output_array
+
+
+def crossover(population, generation, value):
+    ca, p = calculate_ca_and_p(population, value)
+    male, female = separate_by_gender(population, generation)
+    population_size = len(population)
+    total_offspring = int(round(population_size * (p * 1.0))) // 2
+    offspring = []
+    for x in range(total_offspring):
+        a = female_tournament_selection(female, value, 5)
+        b = male_selection(male, a, value)
+        if ca < 0.35:
+            offspring = two_pc(a, b, offspring)
+        elif ca < 0.70:
+            offspring = k_pc(a, b, offspring)
+        else:
+            offspring = i_c(a, b, offspring)
+    return offspring
+
+
+def mutate(offspring):
+    # 1 percent chance
+    chance = 3
+    output_array = []
+    for x in offspring:
+        output_chromosome = []
+        for y in x:
+            random_result = np.random.randint(1, 100)
+            if random_result == chance:
+                output_chromosome.append((y + 1) % 2)
+            else:
+                output_chromosome.append(y)
+        output_array.append(output_chromosome)
     return output_array
