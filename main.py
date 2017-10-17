@@ -413,3 +413,24 @@ def mutate(offspring):
                 output_chromosome.append(y)
         output_array.append(output_chromosome)
     return output_array
+
+
+def generate_valid_chromosome(chromosome_length, weight, capacity):
+    chromosome = [np.random.randint(0, 1) for _ in range(chromosome_length)]
+    chromosome = repair_chromosome(chromosome, weight, capacity)
+    return chromosome
+
+
+def elitism(population, offspring, value, weight, capacity):
+    chromosome_length = len(value)
+    all_population = np.concatenate((population, offspring), axis=0)
+    all_fitness_value = [fitness_value(x, value) for x in all_population]
+    sorted_population = sorted(zip(all_fitness_value, all_population), reverse=True)
+    half_population = [x[1] for x in sorted_population]
+    population_size = len(half_population)
+    half_population = list(set(half_population))
+    len_now = len(half_population)
+    while len_now < population_size:
+        half_population.append(generate_valid_chromosome(chromosome_length, weight, capacity))
+        len_now = len_now + 1
+    return half_population
