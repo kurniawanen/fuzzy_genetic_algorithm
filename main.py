@@ -71,15 +71,16 @@ def separate_by_gender(population, generation):
             female.append(x)
         else:
             male.append(x)
+        gender = gender + 1
     return male, female
 
 
 def female_tournament_selection(female, value, tournament_round):
     tournament_round -= 1
-    female_chro = female[np.random.randint(0, len(value))]
+    female_chro = female[np.random.randint(0, len(female))]
     fitness_value_female_chro = fitness_value(female_chro, value)
     for i in range(tournament_round):
-        chromosome = female[np.random.randint(0, len(value))]
+        chromosome = female[np.random.randint(0, len(female))]
         fitness_value_temp = fitness_value(chromosome, value)
         if fitness_value_temp > fitness_value_female_chro:
             female_chro = chromosome
@@ -104,8 +105,8 @@ def male_selection(male, female_chro, value, size=-1):
 def calculate_t(population, value):
     size = len(population)
     all_fitness_value = [fitness_value(x, value) for x in population]
-    max_fitness_value = max(all_fitness_value)
-    average_fitness_value = np.mean(all_fitness_value)
+    max_fitness_value = max(all_fitness_value) * 1.0
+    average_fitness_value = np.mean(all_fitness_value) * 1.0
     chro_max_fitness_value = population[all_fitness_value.index(max_fitness_value)]
     chro_min_fitness_value = population[all_fitness_value.index(min(all_fitness_value))]
     unique_fitness_value = len(set(all_fitness_value))
@@ -416,7 +417,7 @@ def mutate(offspring):
 
 
 def generate_valid_chromosome(chromosome_length, weight, capacity):
-    chromosome = [np.random.randint(0, 1) for _ in range(chromosome_length)]
+    chromosome = [np.random.randint(1000) % 2 for _ in range(chromosome_length)]
     chromosome = repair_chromosome(chromosome, weight, capacity)
     return chromosome
 
@@ -425,12 +426,58 @@ def elitism(population, offspring, value, weight, capacity):
     chromosome_length = len(value)
     all_population = np.concatenate((population, offspring), axis=0)
     all_fitness_value = [fitness_value(x, value) for x in all_population]
-    sorted_population = sorted(zip(all_fitness_value, all_population), reverse=True)
-    half_population = [x[1] for x in sorted_population]
-    population_size = len(half_population)
+    sorted_population = sorted(zip(all_fitness_value, all_population), reverse=True, key=lambda x: x[0])
+    half_population = []
+    counter = 0
+    population_size = len(sorted_population) // 2
+    for x in sorted_population:
+        if counter > population_size:
+            break
+        half_population.append(x[1])
+        counter = counter + 1
+    # print(str(population_size))
+    # print(str(len(half_population)))
+    half_population = [tuple(x) for x in half_population]
     half_population = list(set(half_population))
     len_now = len(half_population)
     while len_now < population_size:
         half_population.append(generate_valid_chromosome(chromosome_length, weight, capacity))
         len_now = len_now + 1
     return half_population
+
+
+def print_average_and_max(population, value):
+    total = 0.0
+    n = len(population) * 1.0
+    maks = 0.0
+    for x in population:
+        now = fitness_value(x, value)
+        maks = max(maks, now)
+        total = total + (now / n)
+    print('Average : ' + str(total))
+    print('Max : ' + str(maks))
+
+
+def main():
+    value = generate_value(100)
+    # print(str(value.sum()))
+    weight = generate_weight(100)
+    # print(str(weight.sum()))
+    capacity = 2000
+    population = [generate_valid_chromosome(100, weight, capacity) for _ in range(1000)]
+    # print(str(len(population)))
+    # print(str(sum(population[0])))
+    # return
+    for x in range(10):
+        print('Generation : ' + str(x))
+        print('Total population : ' + str(len(population)))
+        print_average_and_max(population, value)
+        offspring = crossover(population, x, value)
+        offspring = mutate(offspring)
+        offspring = repair_offspring(offspring, weight, capacity)
+        population = elitism(population, offspring, value, weight, capacity)
+    print('Generation : 10')
+    print('Total population : ' + str(len(population)))
+    print_average_and_max(population, value)
+
+main()
