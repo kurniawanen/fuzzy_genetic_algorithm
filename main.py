@@ -399,6 +399,20 @@ def crossover(population, generation, value):
             offspring = i_c(a, b, offspring)
     return offspring
 
+# Untuk Perbandingan, sample 1
+def crossoverStandard(population, generation, value):
+    ca, p = calculate_ca_and_p(population, value)
+    male, female = separate_by_gender(population, generation)
+    population_size = len(population)
+    total_offspring = int(round(population_size * (p * 1.0))) // 2
+    offspring = []
+    for x in range(total_offspring):
+        a = female_tournament_selection(female, value, 5)
+        b = male_selection(male, a, value)
+        offspring = k_pc(a, b, offspring)
+    return offspring
+
+
 
 def mutate(offspring):
     # 1 percent chance
@@ -422,16 +436,18 @@ def generate_valid_chromosome(chromosome_length, weight, capacity):
     return chromosome
 
 
-def elitism(population, offspring, value, weight, capacity):
+def elitism(population_size, population, offspring, value, weight, capacity):
     chromosome_length = len(value)
     all_population = np.concatenate((population, offspring), axis=0)
     all_fitness_value = [fitness_value(x, value) for x in all_population]
     sorted_population = sorted(zip(all_fitness_value, all_population), reverse=True, key=lambda x: x[0])
     half_population = []
     counter = 0
-    population_size = len(sorted_population) // 2
+    # population_size = len(sorted_population) // 2
+    # Population_size dimasukkan ke input fungsi, ditambah variaabel 
+
     for x in sorted_population:
-        if counter > population_size:
+        if counter == population_size:
             break
         half_population.append(x[1])
         counter = counter + 1
@@ -457,27 +473,63 @@ def print_average_and_max(population, value):
     print('Average : ' + str(total))
     print('Max : ' + str(maks))
 
+def print_n_best_chromosome(n,population,value, weight, capacity):
+    chromosome_length = len(value)
+    all_fitness_value = [fitness_value(x, value) for x in population]
+    sorted_population = sorted(zip(all_fitness_value, population), reverse=True, key=lambda x: x[0])    
+    sorted_population = list(sorted_population)
+    print("Top 10 chromosome (fitness value, chromosome) :")
+    print('\n'.join('{}' for _ in range(n)).format(*sorted_population))
+    
 
 def main():
-    value = generate_value(100)
-    # print(str(value.sum()))
-    weight = generate_weight(100)
-    # print(str(weight.sum()))
-    capacity = 2000
-    population = [generate_valid_chromosome(100, weight, capacity) for _ in range(1000)]
+    population_size = 1000
+    item_total = 50
+    chromosome_length = item_total
+
+    weight = generate_weight(item_total)
+    print("Weight : ",str(weight))
+    value = generate_value(item_total)
+    print("Value : ",str(value))
+    
+    capacity = 1000
+    population = [generate_valid_chromosome(chromosome_length, weight, capacity) for _ in range(population_size)]
+    populationStd = population
+    # print 10 best population
     # print(str(len(population)))
     # print(str(sum(population[0])))
     # return
+
+    # Standard GA
+    for x in range(10):
+        print('Generation : ' + str(x))
+        print('Total population : ' + str(len(populationStd)))
+        print_average_and_max(populationStd, value)
+        #print_n_best_chromosome(10, populationStd,value,weight,capacity)
+        offspring = crossoverStandard(populationStd, x, value)
+        offspring = mutate(offspring)
+        offspring = repair_offspring(offspring, weight, capacity)
+        populationStd = elitism(population_size, populationStd, offspring, value, weight, capacity)
+    
+    print('Generation : 10')
+    print('Total population : ' + str(len(populationStd)))
+    print('==========================================')
+    print('==========================================')
+
+
+    # Fuzzy GA
     for x in range(10):
         print('Generation : ' + str(x))
         print('Total population : ' + str(len(population)))
         print_average_and_max(population, value)
+        #print_n_best_chromosome(10, population,value,weight,capacity)
         offspring = crossover(population, x, value)
         offspring = mutate(offspring)
         offspring = repair_offspring(offspring, weight, capacity)
-        population = elitism(population, offspring, value, weight, capacity)
+        population = elitism(population_size, population, offspring, value, weight, capacity)
     print('Generation : 10')
     print('Total population : ' + str(len(population)))
     print_average_and_max(population, value)
+    print_n_best_chromosome(10, population,value,weight,capacity)
 
 main()
