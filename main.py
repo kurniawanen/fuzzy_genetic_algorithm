@@ -400,7 +400,7 @@ def crossover(population, generation, value):
     return offspring
 
 # Untuk Perbandingan, sample 1
-def crossoverStandard(population, generation, value):
+def crossover_standard(population, generation, value):
     ca, p = calculate_ca_and_p(population, value)
     male, female = separate_by_gender(population, generation)
     population_size = len(population)
@@ -506,7 +506,7 @@ def main():
         print('Total population : ' + str(len(populationStd)))
         print_average_and_max(populationStd, value)
         #print_n_best_chromosome(10, populationStd,value,weight,capacity)
-        offspring = crossoverStandard(populationStd, x, value)
+        offspring = crossover_standard(populationStd, x, value)
         offspring = mutate(offspring)
         offspring = repair_offspring(offspring, weight, capacity)
         populationStd = elitism(population_size, populationStd, offspring, value, weight, capacity)
