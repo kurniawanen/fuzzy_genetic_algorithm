@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import time
 
 
 def generate_value(total_item):
@@ -301,7 +302,6 @@ def calculate_ca_and_p(population, value):
 
     return ca, p
 
-    # TODO: Crossover, mutation, elitism
 
 
 def two_pc(a, b, output_array=None):
@@ -375,8 +375,8 @@ def i_c(a, b, output_array=None):
             x.append(a[i])
             y.append(b[i])
         else:
-            x.append(b[length - 1 - i])
-            y.append(a[length - 1 - i])
+            x.append(b[length - i])
+            y.append(a[length - i])
     output_array.append(x)
     output_array.append(y)
     return output_array
@@ -501,7 +501,8 @@ def main():
     # return
 
     # Standard GA
-    for x in range(10):
+    start = time.time()
+    for x in range(50):
         print('Generation : ' + str(x))
         print('Total population : ' + str(len(populationStd)))
         print_average_and_max(populationStd, value)
@@ -511,14 +512,18 @@ def main():
         offspring = repair_offspring(offspring, weight, capacity)
         populationStd = elitism(population_size, populationStd, offspring, value, weight, capacity)
     
-    print('Generation : 10')
+    print('Generation : 20')
     print('Total population : ' + str(len(populationStd)))
+    end = time.time()
+    print_average_and_max(populationStd, value)
+    print_n_best_chromosome(10, populationStd,value,weight,capacity)
+    print("predict time: ",end - start)
     print('==========================================')
     print('==========================================')
 
-
+    start = time.time()
     # Fuzzy GA
-    for x in range(10):
+    for x in range(50):
         print('Generation : ' + str(x))
         print('Total population : ' + str(len(population)))
         print_average_and_max(population, value)
@@ -527,9 +532,13 @@ def main():
         offspring = mutate(offspring)
         offspring = repair_offspring(offspring, weight, capacity)
         population = elitism(population_size, population, offspring, value, weight, capacity)
-    print('Generation : 10')
+    print('Generation : 20')
     print('Total population : ' + str(len(population)))
+    end = time.time()
+
     print_average_and_max(population, value)
     print_n_best_chromosome(10, population,value,weight,capacity)
+    print("predict time: ",end - start)
+
 
 main()
