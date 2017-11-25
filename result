@@ -1,0 +1,393 @@
+## SALAH
+Weight :  [10 81 26 95  9 76 24 62 90 41 61 52 15 19 94 29 92 54 95 41 27 18 23 25 47
+ 50 59 70 10 77 52 77 19  5 40 59 21 50  6 82 67 23 26 73 97 45 46 34 76 81]
+Value :  [97 45 71 12 31 21 97  2 46 75  1 22 21 65 66  3 18  1 89 14  6 51 24 15 97
+ 91  8 95 40 11 78 41 47 90 24 99 50 94 64 54 41 18 46 39 61 61 14 68 29 15]
+==========================================
+50  generation in Fuzzy Crossover GAg job
+Average : 1705.049
+Max : 1786
+running time : 171.77700018882751
+benchmark : 10.3972010108
+==========================================
+50  generation in Standard Crossover GA (two point crossover)
+Average : 1602.432
+Max : 1736
+running time : 145.6082410812378
+benchmark : 11.9224021052
+50  generation in Standard Crossover GA (k-point crossover)
+Average : 1707.017
+Max : 1787
+running time : 164.95200181007385
+benchmark : 10.8334544618
+50  generation in Standard Crossover GA (inverse crossover)
+Average : 1405.41
+Max : 1617
+running time : 152.0540246963501
+benchmark : 10.6343781641
+==========================================
+100  generation in Fuzzy Crossover GA job
+Average : 1736.87
+Max : 1794
+running time : 305.8817982673645
+benchmark : 5.86501063536
+==========================================
+100  generation in Standard Crossover GA (two point crossover)
+Average : 1707.551
+Max : 1779
+running time : 286.0428285598755
+benchmark : 6.21934837156
+100  generation in Standard Crossover GA (k-point crossover)
+Average : 1738.087
+Max : 1794
+running time : 322.64180421829224
+benchmark : 5.56034579693
+100  generation in Standard Crossover GA (inverse crossover)
+Average : 1560.774
+Max : 1714
+running time : 278.54273867607117
+benchmark : 6.15345425318
+==========================================
+250  generation in Fuzzy Crossover GA job
+Average : 1724.799
+Max : 1794
+running time : 899.8596391677856
+benchmark : 1.99364425507
+==========================================
+250  generation in Standard Crossover GA (two point crossover)
+Average : 1735.336
+Max : 1794
+running time : 981.4321641921997
+benchmark : 1.82794090662
+250  generation in Standard Crossover GA (k-point crossover)
+Average : 1752.063
+Max : 1794
+running time : 1104.534065246582
+benchmark : 1.62421427862
+250  generation in Standard Crossover GA (inverse crossover)
+Average : 1646.387
+Max : 1770
+running time : 773.7162888050079
+benchmark : 2.28766025171
+==========================================
+500  generation in Fuzzy Crossover GA job
+Average : 1751.971
+Max : 1794
+running time : 1271.077430009842
+benchmark : 1.41140103478
+==========================================
+500  generation in Standard Crossover GA (two point crossover)
+Average : 1751.579
+Max : 1794
+running time : 1155.6579022407532
+benchmark : 1.55236250842
+500  generation in Standard Crossover GA (k-point crossover)
+Average : 1756.211
+Max : 1794
+running time : 1288.7263488769531
+benchmark : 1.39207210403
+500  generation in Standard Crossover GA (inverse crossover)
+Average : 1710.925
+Max : 1786
+running time : 1160.8383100032806
+benchmark : 1.53854329635
+python main.py  10451,38s user 8,16s system 99% cpu 2:54:24,39 total
+
+
+# KODE BENER, GENERASI DIULANG
+ ken@ken-ThinkPad-E450  ~/Documents/fuzzy_genetic_algorithm  master ● ?  python main.py 
+Weight :  [14 60 51  5  4 52 34 57 36 30 79 74 17 62 84 18 66  5  4 39 20 49 27 61 14
+ 39 54 20  7 88 35 93 22 98 84 55 63  4 66 17 17 60 53 65  6 45  1 51 58  7]
+Value :  [95 80 95 45 12 53 77 21 91 30  3 73 31  2 58 28 82 74 65 66 72 36 92 70 77
+ 43 94 11 51  8 28 59 77 62 49 57 89 40 56 76  4 47  9 51 91 67 92 14 33 19]
+==========================================
+50  generation in Fuzzy Crossover GAg job
+Average : 1490.132
+Max : 1871
+running time : 122.39342641830444
+benchmark : 15.2867686995
+==========================================
+50  generation in Standard Crossover GA (two point crossover)
+Average : 1566.511
+Max : 2013
+running time : 119.07849955558777
+benchmark : 16.9048149541
+50  generation in Standard Crossover GA (k-point crossover)
+Average : 1492.11
+Max : 1907
+running time : 119.63858675956726
+benchmark : 15.9396734085
+50  generation in Standard Crossover GA (inverse crossover)
+Average : 1598.176
+Max : 2005
+running time : 120.17851543426514
+benchmark : 16.6835144598
+100  generation in Fuzzy Crossover GA job
+Average : 1516.024
+Max : 1921
+running time : 239.58539938926697
+benchmark : 8.01801781284
+==========================================
+100  generation in Standard Crossover GA (two point crossover)
+Average : 1632.212
+Max : 1992
+running time : 239.48907661437988
+benchmark : 8.31770712953
+100  generation in Standard Crossover GA (k-point crossover)
+Average : 1528.194
+Max : 1876
+running time : 238.23320746421814
+benchmark : 7.87463687354
+100  generation in Standard Crossover GA (inverse crossover)
+Average : 1688.186
+Max : 2029
+running time : 238.30608677864075
+benchmark : 8.51426007379
+250  generation in Fuzzy Crossover GA job
+Average : 1556.913
+Max : 1933
+running time : 601.5133900642395
+benchmark : 3.21356104773
+==========================================
+250  generation in Standard Crossover GA (two point crossover)
+Average : 1712.347
+Max : 2054
+running time : 598.4945750236511
+benchmark : 3.43194422425
+250  generation in Standard Crossover GA (k-point crossover)
+Average : 1559.267
+Max : 1956
+running time : 603.5238900184631
+benchmark : 3.24096532441
+250  generation in Standard Crossover GA (inverse crossover)
+Average : 1750.247
+Max : 2072
+running time : 599.7154726982117
+benchmark : 3.45497172297
+500  generation in Fuzzy Crossover GA job
+Average : 1584.289
+Max : 1964
+running time : 1207.443380355835
+benchmark : 1.62657730536
+==========================================
+500  generation in Standard Crossover GA (two point crossover)
+Average : 1762.058
+Max : 2108
+running time : 1197.3406038284302
+benchmark : 1.76056837399
+500  generation in Standard Crossover GA (k-point crossover)
+Average : 1571.352
+Max : 1970
+running time : 1202.5487773418427
+benchmark : 1.63818718801
+500  generation in Standard Crossover GA (inverse crossover)
+Average : 1826.551
+Max : 2117
+running time : 1201.9758076667786
+benchmark : 1.76126672974
+
+
+
+
+#Terbaru 
+Weight :  [36 55 60 21 71 64 82 21 34 42 11 53 93  8 91 77 73 71 15  8 84 78 50 95 11
+ 24 69 94 61 17 14 83 52 33 86 94 14 64 41 39 31 60 51 52 93 95 61 65  8 49]
+Value :  [56 92 91 53 12 47 73 26 35 38 29 23 62 32 95 80  1 67  9 12 46 22 25 11 69
+ 86 42 18  6 61 21 91 37 37 37 15 38 56 28 99 78 82 60  1 87 97 49 79 78 96]
+==========================================
+50  generation in Fuzzy Crossover GAg job
+Average : 1198.106
+Max : 1481
+running time : 136.21182894706726
+benchmark : 10.8727708265
+==========================================
+50  generation in Standard Crossover GA (two point crossover)
+Average : 1230.317
+Max : 1464
+running time : 135.6748824119568
+benchmark : 10.7905013365
+50  generation in Standard Crossover GA (k-point crossover)
+Average : 1203.527
+Max : 1488
+running time : 147.74360013008118
+benchmark : 10.0715022423
+50  generation in Standard Crossover GA (inverse crossover)
+Average : 1207.256
+Max : 1444
+running time : 142.59534406661987
+benchmark : 10.1265578442
+100 generation
+50  generation in Fuzzy Crossover GAg job
+Average : 1220.46
+Max : 1505
+running time : 134.6248643398285
+benchmark : 11.1792127508
+==========================================
+50  generation in Standard Crossover GA (two point crossover)
+Average : 1285.831
+Max : 1474
+running time : 135.97404074668884
+benchmark : 10.8403044574
+50  generation in Standard Crossover GA (k-point crossover)
+Average : 1214.171
+Max : 1502
+running time : 129.46860241889954
+benchmark : 11.60126835344
+50  generation in Standard Crossover GA (inverse crossover)
+Average : 1273.696
+Max : 1506
+running time : 161.69088411331177
+benchmark : 9.31406868271
+250 generation
+150  generation in Fuzzy Crossover GA job
+Average : 1244.976
+Max : 1531
+running time : 475.24392223358154
+benchmark : 3.22150358663
+==========================================
+150  generation in Standard Crossover GA (two point crossover) very long job% ...Doing very long job
+Average : 1342.367
+Max : 1604
+running time : 469.95082783699036
+benchmark : 3.41312304392
+150  generation in Standard Crossover GA (k-point crossover)
+Average : 1228.989
+Max : 1532
+running time : 442.3721318244934
+benchmark : 3.46314763021
+150  generation in Standard Crossover GA (inverse crossover)
+Average : 1345.682
+Max : 1596
+running time : 420.42342805862427
+benchmark : 3.79617284263
+500 generation
+250  generation in Fuzzy Crossover GA job
+Average : 1258.435
+Max : 1537
+running time : 711.8672575950623
+benchmark : 2.15911040099
+==========================================
+250  generation in Standard Crossover GA (two point crossover)
+Average : 1383.429
+Max : 1615
+running time : 1035.9798758029938
+benchmark : 1.55891059056
+250  generation in Standard Crossover GA (k-point crossover)
+Average : 1242.251
+Max : 1532
+running time : 781.8270800113678
+benchmark : 1.95951258171
+250  generation in Standard Crossover GA (inverse crossover)
+Average : 1372.994
+Max : 1616
+running time : 714.0156886577606
+benchmark : 2.26325559182
+python main.py  5969,07s user 3,65s system 96% cpu 1:42:56,68 total\\
+
+<div class="taskAssignmentUpload " id="taskAssignmentUpload">
+			<form id="formUploadTugas" method="post" action="" enctype="multipart/form-data">
+			<fieldset>
+				<label for="archivefile"><b>Unggah tugas Anda</b>: <input type="file" name="archivefile" id="archivefile"></label>
+				<br>
+				<p>Server hanya menerima berkas odt, pdf, doc, dan docx dengan ukuran maksimal 5 MB. Lama mengunggah tergantung ukuran berkas dan kecepatan internet Anda.</p>
+				<button type="button" class="commonButton" id="buttonUploadTugas">Simpan</button>
+				<input type="hidden" id="assignment_id" name="assignment_id" value="18438">
+				<input type="hidden" id="question_id" name="question_id" value="39214">
+			</fieldset>
+			</form>
+		</div>
+
+
+		 python main.py
+Weight :  [43  8 42 21 77 53 79 57 20 36 18 48 60 55 89 11 19  7  6 77 72 87 95 26 64
+ 56 55 77 43 61 82 90 44  2 25 91 98 59 18 93 68 11 90 69 53 17 52  8 96 29]
+Value :  [39 87 75 48 49 40 66 85 32 39 79 78 16 83 40 53 41 50 46 69 75 18 71 16 13
+ 45  5 97 16 23 82 92 30 41 12 95 86 60 31 81  2 99  8 84 17 11 97 71 23 48]
+==========================================
+50  generation in Fuzzy Crossover GAg job
+Average : 1219.038
+Max : 1542
+running time : 149.6802523136139
+benchmark : 10.3019601862
+==========================================
+50  generation in Standard Crossover GA (two point crossover)
+Average : 1279.324
+Max : 1531
+running time : 149.92214035987854
+benchmark : 10.211967334
+50  generation in Standard Crossover GA (k-point crossover)
+Average : 1217.8
+Max : 1559
+running time : 146.10443019866943
+benchmark : 10.6704498822
+50  generation in Standard Crossover GA (inverse crossover)
+Average : 1287.284
+Max : 1602
+running time : 152.48336148262024
+benchmark : 10.5060642973
+100 generation
+50  generation in Fuzzy Crossover GAg job
+Average : 1240.545
+Max : 1587
+running time : 149.13255786895752
+benchmark : 10.6415394645
+==========================================
+50  generation in Standard Crossover GA (two point crossover)
+Average : 1342.872
+Max : 1598
+running time : 150.50339770317078
+benchmark : 10.6177004931
+50  generation in Standard Crossover GA (k-point crossover)
+Average : 1246.19
+Max : 1564
+running time : 145.39376497268677
+benchmark : 10.7569949805
+50  generation in Standard Crossover GA (inverse crossover)
+Average : 1349.867
+Max : 1632
+running time : 147.00091075897217
+benchmark : 11.1019720325
+250 generation
+150  generation in Fuzzy Crossover GA job
+Average : 1269.368
+Max : 1587
+running time : 435.355183839798
+benchmark : 3.64529942196
+==========================================
+150  generation in Standard Crossover GA (two point crossover)
+Average : 1398.693
+Max : 1658
+running time : 444.9879608154297
+benchmark : 3.7259434996
+150  generation in Standard Crossover GA (k-point crossover)
+Average : 1266.991
+Max : 1573
+running time : 439.6878263950348
+benchmark : 3.57753821136
+150  generation in Standard Crossover GA (inverse crossover)
+Average : 1474.06
+Max : 1677
+running time : 449.1748032569885
+benchmark : 3.73351307295
+500 generation
+250  generation in Fuzzy Crossover GA job
+Average : 1296.733
+Max : 1587
+running time : 743.268079996109
+benchmark : 2.13516501342
+==========================================
+250  generation in Standard Crossover GA (two point crossover)
+Average : 1460.899
+Max : 1699
+running time : 748.0015091896057
+benchmark : 2.27138579151
+250  generation in Standard Crossover GA (k-point crossover)
+Average : 1308.976
+Max : 1586
+running time : 744.845460653305
+benchmark : 2.12930075268
+250  generation in Standard Crossover GA (inverse crossover)
+Average : 1453.916
+Max : 1713
+running time : 745.6705570220947
+benchmark : 2.2972611482

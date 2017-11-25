@@ -1,6 +1,9 @@
+# Usage --> python fuzzy.py
+
 import numpy as np
 import random
 import time
+import sys
 
 
 def generate_value(total_item):
@@ -375,8 +378,8 @@ def i_c(a, b, output_array=None):
             x.append(a[i])
             y.append(b[i])
         else:
-            x.append(b[length - i])
-            y.append(a[length - i])
+            x.append(b[length - 1 - i])
+            y.append(a[length -1 - i])
     output_array.append(x)
     output_array.append(y)
     return output_array
@@ -392,15 +395,15 @@ def crossover(population, generation, value):
         a = female_tournament_selection(female, value, 5)
         b = male_selection(male, a, value)
         if ca < 0.35:
-            offspring = two_pc(a, b, offspring)
+            offspring = i_c(a, b, offspring)
         elif ca < 0.70:
             offspring = k_pc(a, b, offspring)
         else:
-            offspring = i_c(a, b, offspring)
+            offspring = two_pc(a, b, offspring)
     return offspring
 
-# Untuk Perbandingan, sample 1
-def crossover_standard(population, generation, value):
+# Untuk Perbandingan
+def crossover_k_pc(population, generation, value):
     ca, p = calculate_ca_and_p(population, value)
     male, female = separate_by_gender(population, generation)
     population_size = len(population)
@@ -412,7 +415,29 @@ def crossover_standard(population, generation, value):
         offspring = k_pc(a, b, offspring)
     return offspring
 
+def crossover_two_pc(population, generation, value):
+    ca, p = calculate_ca_and_p(population, value)
+    male, female = separate_by_gender(population, generation)
+    population_size = len(population)
+    total_offspring = int(round(population_size * (p * 1.0))) // 2
+    offspring = []
+    for x in range(total_offspring):
+        a = female_tournament_selection(female, value, 5)
+        b = male_selection(male, a, value)
+        offspring = two_pc(a, b, offspring)
+    return offspring
 
+def crossover_i_c(population, generation, value):
+    ca, p = calculate_ca_and_p(population, value)
+    male, female = separate_by_gender(population, generation)
+    population_size = len(population)
+    total_offspring = int(round(population_size * (p * 1.0))) // 2
+    offspring = []
+    for x in range(total_offspring):
+        a = female_tournament_selection(female, value, 5)
+        b = male_selection(male, a, value)
+        offspring = i_c(a, b, offspring)
+    return offspring
 
 def mutate(offspring):
     # 1 percent chance
@@ -441,18 +466,16 @@ def elitism(population_size, population, offspring, value, weight, capacity):
     all_population = np.concatenate((population, offspring), axis=0)
     all_fitness_value = [fitness_value(x, value) for x in all_population]
     sorted_population = sorted(zip(all_fitness_value, all_population), reverse=True, key=lambda x: x[0])
+    combined_population = len(all_population)
     half_population = []
     counter = 0
-    # population_size = len(sorted_population) // 2
-    # Population_size dimasukkan ke input fungsi, ditambah variaabel 
 
     for x in sorted_population:
-        if counter == population_size:
+        if counter == (combined_population/2):
             break
         half_population.append(x[1])
         counter = counter + 1
-    # print(str(population_size))
-    # print(str(len(half_population)))
+ 
     half_population = [tuple(x) for x in half_population]
     half_population = list(set(half_population))
     len_now = len(half_population)
@@ -473,6 +496,13 @@ def print_average_and_max(population, value):
     print('Average : ' + str(total))
     print('Max : ' + str(maks))
 
+def get_max_fitness(population, value):
+    maks = 0.0
+    for x in population:
+        now = fitness_value(x, value)
+        maks = max(maks, now)
+    return maks
+
 def print_n_best_chromosome(n,population,value, weight, capacity):
     chromosome_length = len(value)
     all_fitness_value = [fitness_value(x, value) for x in population]
@@ -481,6 +511,15 @@ def print_n_best_chromosome(n,population,value, weight, capacity):
     print("Top 10 chromosome (fitness value, chromosome) :")
     print('\n'.join('{}' for _ in range(n)).format(*sorted_population))
     
+def progress(count, total, status=''):
+    bar_len = 10
+    filled_len = int(round(bar_len * count / float(total)))
+
+    percents = round(100.0 * count / float(total), 1)
+    bar = '=' * filled_len + '-' * (bar_len - filled_len)
+
+    sys.stdout.write('[%s] %s%s ...%s\r' % (bar, percents, '%', status))
+    sys.stdout.flush() 
 
 def main():
     population_size = 1000
@@ -488,57 +527,47 @@ def main():
     chromosome_length = item_total
 
     weight = generate_weight(item_total)
-    print("Weight : ",str(weight))
+    print("Weight : ",weight)
     value = generate_value(item_total)
-    print("Value : ",str(value))
+    print("Value : ",value)
     
     capacity = 1000
     population = [generate_valid_chromosome(chromosome_length, weight, capacity) for _ in range(population_size)]
-    populationStd = population
+    #population_fuzzy = population
+    #population_two_pc = population
+    #population_k_pc = population
+    #population_i_c = population
+        
     # print 10 best population
     # print(str(len(population)))
     # print(str(sum(population[0])))
     # return
-
-    # Standard GA
-    start = time.time()
-    for x in range(50):
-        print('Generation : ' + str(x))
-        print('Total population : ' + str(len(populationStd)))
-        print_average_and_max(populationStd, value)
-        #print_n_best_chromosome(10, populationStd,value,weight,capacity)
-        offspring = crossover_standard(populationStd, x, value)
-        offspring = mutate(offspring)
-        offspring = repair_offspring(offspring, weight, capacity)
-        populationStd = elitism(population_size, populationStd, offspring, value, weight, capacity)
-    
-    print('Generation : 20')
-    print('Total population : ' + str(len(populationStd)))
-    end = time.time()
-    print_average_and_max(populationStd, value)
-    print_n_best_chromosome(10, populationStd,value,weight,capacity)
-    print("predict time: ",end - start)
-    print('==========================================')
     print('==========================================')
 
+    total_generation = 50
+
+# fuzzy GA
     start = time.time()
-    # Fuzzy GA
-    for x in range(50):
-        print('Generation : ' + str(x))
-        print('Total population : ' + str(len(population)))
-        print_average_and_max(population, value)
+    for x in range(total_generation):
+        #print('Generation : ' + str(x))
+        #print('Total population : ' + str(len(population)))
+        #print_average_and_max(population, value)
         #print_n_best_chromosome(10, population,value,weight,capacity)
         offspring = crossover(population, x, value)
         offspring = mutate(offspring)
         offspring = repair_offspring(offspring, weight, capacity)
         population = elitism(population_size, population, offspring, value, weight, capacity)
-    print('Generation : 20')
-    print('Total population : ' + str(len(population)))
+        progress(x, total_generation, status='Doing very long job')
+    
+    #print('Generation : 20')
+    #print('Total population : ' + str(len(populationStd)))
     end = time.time()
 
+    print(total_generation," generation in Fuzzy Crossover GA")
     print_average_and_max(population, value)
-    print_n_best_chromosome(10, population,value,weight,capacity)
-    print("predict time: ",end - start)
-
+    #print_n_best_chromosome(1, population,value,weight,capacity)
+    print("running time :",end - start)
+    print("benchmark :",get_max_fitness(population,value)/(end-start) )
+    print('==========================================')
 
 main()
